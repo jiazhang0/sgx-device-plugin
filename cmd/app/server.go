@@ -94,12 +94,12 @@ func (m *SgxDevicePlugin) Start() error {
 				// to reflect on the frequency
 				restartCount = 1
 			} else {
-				restartCount += 1
+				restartCount++
 			}
 		}
 	}()
 
-	// Wait for server to start by launching a blocking connexion
+	// Wait for server to start by launching a blocking connection
 	conn, err := dial(m.socket, 5*time.Second)
 	if err != nil {
 		return err
@@ -189,7 +189,7 @@ func (m *SgxDevicePlugin) Serve() error {
 		klog.Errorf("Could not start device plugin: %s", err)
 		return err
 	}
-	klog.Infof("Starting to serve on", m.socket)
+	klog.Infof("Starting to serve on %s", m.socket)
 
 	err = m.Register(devicepluginapi.KubeletSocket, ResourceNameSgx)
 	if err != nil {
