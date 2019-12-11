@@ -16,7 +16,11 @@ jobs:
           test -z $(go fmt ./...)
           go vet -asmdecl=false ./...
           go test -race -v ./...
-    - run: docker build -t acs/sgx-device-plugin:$CIRCLE_BUILD_NUM .
+    - run: 
+        name: build image
+        command: |
+          make binary
+          docker build -t acs/sgx-device-plugin:$CIRCLE_BUILD_NUM .
     - run:
         name: "validate lint"
         command: |
