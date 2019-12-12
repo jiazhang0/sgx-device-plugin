@@ -36,13 +36,12 @@ jobs:
     - run:
         name: markdownlint
         command: |
-          npm init -f
-          npm install --save-dev markdownlint-cli
+          sudo npm install -g markdownlint-cli
           markdownlint -i vendor -f **/*.md
     - run:
         name: use markdown-link-check(https://github.com/tcort/markdown-link-check) to check links in markdown files
         command: |
-          npm install --save-dev markdown-link-check
+          sudo npm install -g markdown-link-check
           set +e
           for name in $(find . -name \*.md | grep -v vendor); do 
             if [ -f $name ]; then 
@@ -56,7 +55,7 @@ jobs:
     - run:
         name: markdown-spellcheck
         command: |
-          npm install --save-dev markdown-spellcheck
+          sudo npm install -g markdown-spellcheck
           find . -name \*.md | grep -v '^./vendor' | xargs mdspell --ignore-numbers --ignore-acronyms --en-us -r -x
 workflows:
   version: 2
