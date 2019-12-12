@@ -1,22 +1,25 @@
 # sgx-device-plugin
+
 Kubernetes Device Plugin for Intel SGX
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/AliyunContainerService/sgx-device-plugin)](https://goreportcard.com/report/github.com/AliyunContainerService/sgx-device-plugin)
 
-
 English | [简体中文](./README-zh_CN.md)
 
 ## Overview
+
 `sgx-device-plugin` is a Kubernetes Device Plugin powered by Alibaba Cloud and Ant Financial, making it easier to run SGX applications inside a container.
 
 Intel(R) Software Guard Extensions (Intel(R) SGX) is an Intel technology for application developers seeking to protect select code and data from disclosure or modification. See [official introduction](https://software.intel.com/en-us/sgx) for more details.
 
-## Features:
+## Features
+
 * Using SGX features without privileged mode.
 * Support retrieving real EPC size.
 * Support EPC resource allocation.
 
 ## Prerequisites
+
 * [Intel SGX Drivers](https://github.com/intel/linux-sgx-driver)
 * [Intel SGX PSW(Platform Software)](https://github.com/intel/linux-sgx) (If you need AESM)
 * Kubernetes version >= 1.10
@@ -29,22 +32,26 @@ TEE (Trusted Execution Environment), created by hardware isolation and memory en
 You could create a confidential kubernetes cluster using [ACK (Alibaba Cloud Container Service for Kubernetes)](https://www.aliyun.com/product/kubernetes), all worker nodes are running on bare-metal sgx-enabled machines(model: `ecs.ebmhfg5.2xlarge`) which have less overhead, better performance and more stable than VM. By default, containerd, Intel SGX Driver, Intel SGX PSW(Platform Software) and SGX-Device-Plugin will be installed on each node.
 
 ## Build
+
 Step1: Download source code and build binary.
+
 ```bash
-$ mkdir -p $GOPATH/src/github.com/AliyunContainerService
-$ git clone https://github.com/AliyunContainerService/sgx-device-plugin.git $GOPATH/src/github.com/AliyunContainerService/sgx-device-plugin
-$ cd $GOPATH/src/github.com/AliyunContainerService/sgx-device-plugin/
-$ make 
-$ ls -l _output/sgx-device-plugin
+mkdir -p $GOPATH/src/github.com/AliyunContainerService
+git clone https://github.com/AliyunContainerService/sgx-device-plugin.git $GOPATH/src/github.com/AliyunContainerService/sgx-device-plugin
+cd $GOPATH/src/github.com/AliyunContainerService/sgx-device-plugin/
+make
+ls -l _output/sgx-device-plugin
 ```
 
 Step2： Build Image.
+
 ```bash
-$ docker build -t {SGX_DEVICE_PLUGIN_IMAGE} . -f Dockerfile
-$ docker push {SGX_DEVICE_PLUGIN_IMAGE}
+docker build -t {SGX_DEVICE_PLUGIN_IMAGE} . -f Dockerfile
+docker push {SGX_DEVICE_PLUGIN_IMAGE}
 ```
 
 ## Deployment
+
 While you are creating a confidential kubernetes cluster using ACK(Alibaba Cloud Container Service for Kubernetes), sgx-device-plugin will be installed by default. Also, you may install it on your own private kubernetes cluster manually.
 
 ```bash
@@ -98,7 +105,7 @@ NAME                         READY   STATUS        RESTARTS   AGE
 sgx-device-plugin-ds-5brgs   1/1     Running       0          5d5h
 sgx-device-plugin-ds-b467q   1/1     Running       0          5d5h
 sgx-device-plugin-ds-vl7sm   1/1     Running       0          5d5h
-$ 
+$
 ```
 
 While plugins are running, run command `kubectl get node {NODE_NAME} -o yaml`, then you will find a new resource type: `alibabacloud.com/sgx_epc_MiB`.
@@ -110,10 +117,10 @@ $ kubectl get node {NODE_NAME} -o yaml
     alibabacloud.com/sgx_epc_MiB: "93"
     cpu: "8"
 ...
-$ 
+$
 ```
 
-## Run SGX-Enabled Application 
+## Run SGX-Enabled Application
 
 Your application MUST BE SGX-enabled, means that your application is built and signed with SGX SDK, such as Intel SGX SDK.
 
@@ -165,6 +172,7 @@ spec:
 ```
 
 ## FAQ
+
 * **Can I deploy this sgx device plugin in my own self-hosting kubernetes?**  
 Yes, this plugin is cloud native, you can run it on sgx-enabled nodes in any kubernetes.
 
@@ -173,8 +181,9 @@ No, EPC size limitation specified by `alibabacloud.com/sgx_epc_MiB` is just used
 Currently, SGX driver doesn't support EPC size limitation.
 
 ## License
+
 This software is released under the [Apache 2.0](./LICENSE) license.
 
 ## Contributing
-See [CONTRIBUTING.md](./docs/en/CONTRIBUTING.md) for details.
 
+See [CONTRIBUTING.md](./docs/en/CONTRIBUTING.md) for details.

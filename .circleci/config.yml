@@ -25,9 +25,22 @@ jobs:
         name: "validate lint"
         command: |
           curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.21.0
-          golangci-lint run --disable govet         
+          golangci-lint run --disable govet
+  markdown-lint:
+    docker: # run the steps with Docker
+    - image: circleci/node:12
+    working_directory: /go/src/github.com/AliyunContainerService/sgx-device-plugin
+    steps:
+    - checkout
+    - setup_remote_docker
+    - run:
+        name: run tests
+        command: |
+          npm install -g markdownlint-cli
+          markdownlint -i vendor -f **/*.md
 workflows:
   version: 2
   ci:
     jobs:
       - build
+      - markdown-lint
