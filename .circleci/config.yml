@@ -36,6 +36,7 @@ jobs:
     - run:
         name: markdownlint
         command: |
+          npm init -f
           npm install --save-dev markdownlint-cli
           markdownlint -i vendor -f **/*.md
     - run:
@@ -52,6 +53,11 @@ jobs:
             fi 
           done 
           bash -c "exit $code";
+    - run:
+        name: markdown-spellcheck
+        command: |
+          npm install --save-dev markdown-spellcheck
+          find . -name \*.md | grep -v '^./vendor' | xargs mdspell --ignore-numbers --ignore-acronyms --en-us -r -x
 workflows:
   version: 2
   ci:

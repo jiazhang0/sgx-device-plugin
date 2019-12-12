@@ -33,7 +33,7 @@ TEE (Trusted Execution Environment) ，中文名：可信执行环境，是把�
 
 ## 编译&打包镜像（可选）
 
-Step1: 下载源码并编译。
+Step 1: 下载源码并编译。
 
 ```bash
 mkdir -p $GOPATH/src/github.com/AliyunContainerService
@@ -43,7 +43,7 @@ make
 ls -l _output/sgx-device-plugin
 ```
 
-Step2： 镜像打包
+Step 2： 镜像打包
 
 ```bash
 docker build -t {SGX_DEVICE_PLUGIN_IMAGE} . -f Dockerfile
@@ -173,8 +173,8 @@ spec:
 
 ## FAQ
 
-* **我可以把这个插件部署到自己的私有 kubernetes 集群中吗 ?**
-当然可以，这个插件是云原生、云平台无关的，你可以把它部署在任何 kubernetes 上，但它只能运行在 sgx 的节点上。
+* **我可以把这个插件部署到自己的私有 Kubernetes 集群中吗 ?**
+当然可以，这个插件是云原生、云平台无关的，你可以把它部署在任何 Kubernetes 上，但它只能运行在 SGX 的节点上。
 
 * **这个插件是否可以真的帮助应用限制 EPC 大小 ？**
 不可以，`alibabacloud.com/sgx_epc_MiB` 里指定的 EPC 大小限制仅用于 K8s 的调度, 因为 SGX 驱动目前还不支持 EPC 大小限制。

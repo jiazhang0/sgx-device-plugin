@@ -27,13 +27,13 @@ Intel(R) Software Guard Extensions (Intel(R) SGX) is an Intel technology for app
 
 ## ACK-TEE Introduction
 
-TEE (Trusted Execution Environment), created by hardware isolation and memory encryption technology such as Intel SGX, is a special execution context named enclave which confidential code and data runs inside. It aims to help application owner to protect their data and prevent data steals by other applications, kernel, BIOS, even all hardwares beside CPU.
+TEE (Trusted Execution Environment), created by hardware isolation and memory encryption technology such as Intel SGX, is a special execution context named enclave which confidential code and data runs inside. It aims to help application owner to protect their data and prevent data steals by other applications, kernel, BIOS, even all hardware beside CPU.
 
-You could create a confidential kubernetes cluster using [ACK (Alibaba Cloud Container Service for Kubernetes)](https://www.aliyun.com/product/kubernetes), all worker nodes are running on bare-metal sgx-enabled machines(model: `ecs.ebmhfg5.2xlarge`) which have less overhead, better performance and more stable than VM. By default, containerd, Intel SGX Driver, Intel SGX PSW(Platform Software) and SGX-Device-Plugin will be installed on each node.
+You could create a confidential Kubernetes cluster using [ACK (Alibaba Cloud Container Service for Kubernetes)](https://www.aliyun.com/product/kubernetes), all worker nodes are running on bare-metal sgx-enabled machines(model: `ecs.ebmhfg5.2xlarge`) which have less overhead, better performance and more stable than VM. By default, containerd, Intel SGX Driver, Intel SGX PSW(Platform Software) and SGX-Device-Plugin will be installed on each node.
 
 ## Build
 
-Step1: Download source code and build binary.
+Step 1: Download source code and build binary.
 
 ```bash
 mkdir -p $GOPATH/src/github.com/AliyunContainerService
@@ -43,7 +43,7 @@ make
 ls -l _output/sgx-device-plugin
 ```
 
-Step2： Build Image.
+Step 2： Build Image.
 
 ```bash
 docker build -t {SGX_DEVICE_PLUGIN_IMAGE} . -f Dockerfile
@@ -52,7 +52,7 @@ docker push {SGX_DEVICE_PLUGIN_IMAGE}
 
 ## Deployment
 
-While you are creating a confidential kubernetes cluster using ACK(Alibaba Cloud Container Service for Kubernetes), sgx-device-plugin will be installed by default. Also, you may install it on your own private kubernetes cluster manually.
+While you are creating a confidential Kubernetes cluster using ACK(Alibaba Cloud Container Service for Kubernetes), sgx-device-plugin will be installed by default. Also, you may install it on your own private Kubernetes cluster manually.
 
 ```bash
 $ cat <<EOF | kubectl create -f -
@@ -68,7 +68,7 @@ spec:
   template:
     metadata:
       annotations:
-        scheduler.alpha.kubernetes.io/critical-pod: ""
+        scheduler.alpha.Kubernetes.io/critical-pod: ""
       labels:
         k8s-app: sgx-device-plugin
     spec:
@@ -173,8 +173,8 @@ spec:
 
 ## FAQ
 
-* **Can I deploy this sgx device plugin in my own self-hosting kubernetes?**  
-Yes, this plugin is cloud native, you can run it on sgx-enabled nodes in any kubernetes.
+* **Can I deploy this SGX device plugin in my own self-hosting Kubernetes?**  
+Yes, this plugin is cloud native, you can run it on sgx-enabled nodes in any Kubernetes.
 
 * **Does this plugin actually limit EPC size for sgx-enabled container?**  
 No, EPC size limitation specified by `alibabacloud.com/sgx_epc_MiB` is just used for kube-scheduler.  
