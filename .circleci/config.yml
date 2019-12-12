@@ -36,12 +36,12 @@ jobs:
     - run:
         name: markdownlint
         command: |
-          npm install -g markdownlint-cli
+          npm install --save-dev markdownlint-cli
           markdownlint -i vendor -f **/*.md
     - run:
         name: use markdown-link-check(https://github.com/tcort/markdown-link-check) to check links in markdown files
         command: |
-          npm install -g markdown-link-check
+          npm install --save-dev markdown-link-check
           set +e
           for name in $(find . -name \*.md | grep -v vendor); do 
             if [ -f $name ]; then 
